@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 import numpy as np
 
@@ -96,14 +97,25 @@ X_projected = pca.fit_transform(X)
 x1 = X_projected[:, 0]
 x2 = X_projected[:, 1]
 
-fig = plt.figure()
-plt.scatter(x1, x2,
-        c=y, alpha=0.8,
-        cmap='viridis')
+# fig = plt.figure()
+# plt.scatter(x1, x2,
+#         c=y, alpha=0.8,
+#         cmap='viridis')
+#
+# plt.xlabel('Principal Component 1')
+# plt.ylabel('Principal Component 2')
+# plt.colorbar()
 
-plt.xlabel('Principal Component 1')
-plt.ylabel('Principal Component 2')
-plt.colorbar()
+# st.pyplot(fig)
+
+scatter_data = pd.DataFrame({
+    'Principal Component 1': x1,
+    'Principal Component 2': x2,
+    'Class': y
+})
+
+# Use st.scatter_chart
+st.write("### Scatter Plot")
+st.scatter_chart(scatter_data, x='Principal Component 1', y='Principal Component 2', color='Class')
 
 #plt.show()
-st.pyplot(fig)
